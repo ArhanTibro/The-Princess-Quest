@@ -1,0 +1,30 @@
+# Virtual environment
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Training logs
+training/runs/
+
+# Model — PyTorch weights (large files, regenerate by running train.py)
+model/*.pth
+
+# Distribution / packaging
+dist/
+build/
+*.spec
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Env variables
+.env
