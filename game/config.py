@@ -43,7 +43,7 @@ DIFFICULTY_TIERS = [
 
 # ── Princess move interval ───────────────────────────────────────────────────
 PRINCESS_MOVE_INTERVAL = 0.5      # seconds between adjacent steps
-PRINCESS_JUMP_INTERVAL = 3.0      # seconds between big jumps
+PRINCESS_JUMP_INTERVAL = 2.0      # seconds between big jumps
 PRINCESS_JUMP_MIN_DIST = 5        # minimum manhattan distance for a jump target
 
 
