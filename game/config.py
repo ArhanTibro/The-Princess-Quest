@@ -36,13 +36,15 @@ ASSETS_DIR     = os.path.join(os.path.dirname(os.path.abspath(__file__)), "asset
 # NEW
 DIFFICULTY_TIERS = [
     (0,  4, "Medium"),     # starts at 4 ticks/sec immediately
-    (20, 6, "Hard"),       # ramps up to 6 ticks/sec after 20 seconds
-    (45, 7, "Extreme"),    # brutal 
-    (70, 8, "Insane"),     # nearly unplayable — good luck
+    (7, 6, "Hard"),       # ramps up to 6 ticks/sec after 7 seconds
+    (20, 7, "Extreme"),    # brutal 
+    (45, 8, "Insane"),     # nearly unplayable — good luck
 ]
 
 # ── Princess move interval ───────────────────────────────────────────────────
-PRINCESS_MOVE_INTERVAL = 0.1   # moves every 0.3 seconds 
+PRINCESS_MOVE_INTERVAL = 0.5      # seconds between adjacent steps
+PRINCESS_JUMP_INTERVAL = 3.0      # seconds between big jumps
+PRINCESS_JUMP_MIN_DIST = 5        # minimum manhattan distance for a jump target
 
 
 

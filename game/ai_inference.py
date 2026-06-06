@@ -75,17 +75,23 @@ class AIInference:
         ], dtype=np.float32)
 
     # ── Action selection ──────────────────────────────────────────────────────
-    def get_action(self, monster_pos, hero_pos):
-        """
-        Run inference and return the greedy action.
-        Called by main.py every monster tick.
-
-        monster_pos : (row, col)
-        hero_pos    : (row, col)
-        returns     : int — 0=UP, 1=DOWN, 2=LEFT, 3=RIGHT
-        """
+    def get_action(self, monster_pos, hero_pos, valid_actions=None):
+    
+    # Run inference and return the best VALID action.
+    # If the greedy action is blocked, falls back to the
+    # next best Q-value action that isn't blocked.
+    
+    # valid_actions: list of action ints (0-3) that aren't walls.
+    #               If None, all 4 actions are considered.
+    
         state  = self.build_state(monster_pos, hero_pos)
         q_vals = _forward(self._layers, state)
+
+        if valid_actions is not None and len(valid_actions) > 0:
+            # Pick highest Q-value among only valid (non-wall) actions
+            best_action = max(valid_actions, key=lambda a: q_vals[a])
+            return best_action
+
         return int(np.argmax(q_vals))
 
     def get_q_values(self, monster_pos, hero_pos):

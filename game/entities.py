@@ -1,11 +1,15 @@
 import random
 import pygame
+from game import grid
 from game.config import (
     C_HERO, C_HERO_BORDER,
     C_MONSTER, C_MONSTER_BORDER,
     C_PRINCESS, C_PRINCESS_BORDER,
     ENTITY_RADIUS, entity_rect,
 )
+
+def manhattan_dist(a, b):
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 # ── Actions ───────────────────────────────────────────────────────────────────
 UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
@@ -146,20 +150,47 @@ class Princess(Entity):
     def __init__(self, pos):
         super().__init__(pos, C_PRINCESS, C_PRINCESS_BORDER)
 
-    def move(self, grid, monster_pos):
+    def move(self, grid, monster_pos, hero_pos=None):
         """
-        Move princess to a random valid adjacent cell.
-        Never moves onto a wall or the monster's cell.
-        Stays in place if no valid move exists.
+        Small move — random valid adjacent cell.
+        Never onto monster or hero cell.
         """
         neighbours = grid.valid_neighbours(self.pos)
-
-        # Filter out the monster's cell
-        safe = [cell for cell in neighbours if cell != monster_pos]
-
+        safe = [
+            cell for cell in neighbours
+            if cell != monster_pos
+            and cell != hero_pos
+        ]
         if safe:
             self.pos = random.choice(safe)
-        # else: all neighbours are walls or monster — stay put
+
+    def jump(self, grid, monster_pos, hero_pos):
+        """
+        Big jump — teleports to a distant empty cell at least
+        PRINCESS_JUMP_MIN_DIST away from current position.
+        Prefers cells far from both hero and monster.
+        Never jumps onto hero or monster cell.
+        Stays put if no valid jump target exists.
+        """
+        from game.config import N, PRINCESS_JUMP_MIN_DIST
+
+        all_cells = [(r, c) for r in range(N) for c in range(N)]
+
+        candidates = [
+            cell for cell in all_cells
+            if cell not in grid.walls
+            and cell != monster_pos
+            and cell != hero_pos
+            and cell != self.pos
+            and manhattan_dist(cell, self.pos) >= PRINCESS_JUMP_MIN_DIST
+        ]
+
+        if not candidates:
+            return   # nowhere far enough — stay put
+
+    # Among candidates pick the one farthest from hero
+    # so the player has to travel across the board
+        self.pos = max(candidates, key=lambda c: manhattan_dist(c, hero_pos))
 
     def draw(self, surface):
         """
