@@ -1,4 +1,4 @@
-# 🏰 The Princess Quest
+# The Princess Quest
 
 > A fun reinforcement learning project disguised as a game.
 
@@ -47,7 +47,8 @@ Walls are randomised every round so no two games feel the same.
 
 _That's you. Move fast._
 
-<!-- Add hero character image here -->
+<img width="435" height="592" alt="hero" src="https://github.com/user-attachments/assets/cc4a733e-c840-46db-8ce3-0e13d0e968e4" />
+
 
 ---
 
@@ -55,7 +56,8 @@ _That's you. Move fast._
 
 _Trained with Double DQN. Learns while you play._
 
-<!-- Add monster character image here -->
+<img width="442" height="617" alt="monster" src="https://github.com/user-attachments/assets/f0f9a1c9-625d-4ab1-99ba-c54ef5127d42" />
+
 
 ---
 
@@ -63,7 +65,8 @@ _Trained with Double DQN. Learns while you play._
 
 _Your goal — but she won't let you catch her that easy!_
 
-<!-- Add princess character image here -->
+<img width="442" height="626" alt="princess" src="https://github.com/user-attachments/assets/0c9257bc-4803-42cc-8d81-7843197082a8" />
+
 
 ---
 
