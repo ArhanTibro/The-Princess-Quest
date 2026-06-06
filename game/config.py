@@ -5,14 +5,24 @@ import pygame
 N              = 10          # grid side length (10×10 = 100 cells)
 NUM_WALLS      = N           # wall count per round = N
 
-# ── Display ──────────────────────────────────────────────────────────────────
-CELL_SIZE      = 56          # pixels per cell
-MARGIN         = 40          # pixels around the grid on each side
-HUD_HEIGHT     = 70          # pixels reserved above grid for HUD
 
-GRID_PIXEL     = N * CELL_SIZE                        # 560px
-WINDOW_WIDTH   = GRID_PIXEL + MARGIN * 2              # 640px
-WINDOW_HEIGHT  = GRID_PIXEL + MARGIN * 2 + HUD_HEIGHT # 710px
+pygame.init()
+
+# ── Auto-fit to screen ────────────────────────────────────────────────────────
+_info          = pygame.display.Info()
+_SCREEN_H      = _info.current_h          # actual monitor height in pixels
+
+MARGIN         = 36
+HUD_HEIGHT     = 70
+BOTTOM_MARGIN  = 36
+
+# Calculate max cell size that fits vertically with some breathing room
+_AVAILABLE_H   = int(_SCREEN_H * 0.88) - HUD_HEIGHT - MARGIN - BOTTOM_MARGIN
+CELL_SIZE      = min(70, _AVAILABLE_H // N)   # cap at 70, shrink if needed
+
+GRID_PIXEL     = N * CELL_SIZE
+WINDOW_WIDTH   = GRID_PIXEL + MARGIN * 2
+WINDOW_HEIGHT  = GRID_PIXEL + MARGIN + HUD_HEIGHT + BOTTOM_MARGIN
 
 FPS            = 60
 
@@ -23,15 +33,21 @@ ASSETS_DIR     = os.path.join(os.path.dirname(os.path.abspath(__file__)), "asset
 
 # ── Difficulty — monster ticks per second ────────────────────────────────────
 # Each tier defines: (min_elapsed_seconds, ticks_per_second, label)
+# NEW
 DIFFICULTY_TIERS = [
-    (0,  1, "Easy"),
-    (15, 2, "Medium"),
-    (40, 3, "Hard"),
-    (70, 4, "Extreme"),
+    (0,  4, "Medium"),     # starts at 4 ticks/sec immediately
+    (7, 6, "Hard"),       # ramps up to 6 ticks/sec after 7 seconds
+    (20, 7, "Extreme"),    # brutal 
+    (45, 8, "Insane"),     # nearly unplayable — good luck
 ]
 
 # ── Princess move interval ───────────────────────────────────────────────────
-PRINCESS_MOVE_INTERVAL = 4.0    # seconds between princess moves
+PRINCESS_MOVE_INTERVAL = 0.5      # seconds between adjacent steps
+PRINCESS_JUMP_INTERVAL = 3.0      # seconds between big jumps
+PRINCESS_JUMP_MIN_DIST = 5        # minimum manhattan distance for a jump target
+
+
+
 
 # ── Colours  (R, G, B) ───────────────────────────────────────────────────────
 # Background & grid
@@ -56,10 +72,10 @@ C_HUD_ACCENT       = (140, 100, 255)    # purple accent for labels
 
 # Difficulty label colours — one per tier
 C_DIFFICULTY = {
-    "Easy"    : (80,  200, 120),        # green
-    "Medium"  : (255, 200, 50),         # yellow
-    "Hard"    : (255, 130, 40),         # orange
-    "Extreme" : (220, 50,  50),         # red
+    "Medium"  : (255, 200, 50),
+    "Hard"    : (255, 130, 40),
+    "Extreme" : (220, 50,  50),
+    "Insane"  : (180, 0,   220),   # purple — ominous
 }
 
 # Screens
