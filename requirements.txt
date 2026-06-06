@@ -1,0 +1,15 @@
+# Numerics 
+numpy
+
+# Deep learning
+torch==2.6.0
+
+# Training utilities
+tensorboard
+tqdm
+
+# Game
+pygame
+
+# Packaging
+pyinstaller
