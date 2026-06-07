@@ -1,5 +1,14 @@
 import os
 import pygame
+import sys
+
+def _resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        relative_path
+    )
 
 # ── Grid ─────────────────────────────────────────────────────────────────────
 N              = 10          # grid side length (10×10 = 100 cells)
@@ -27,9 +36,8 @@ WINDOW_HEIGHT  = GRID_PIXEL + MARGIN + HUD_HEIGHT + BOTTOM_MARGIN
 FPS            = 60
 
 # ── Paths ────────────────────────────────────────────────────────────────────
-ROOT_DIR       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH     = os.path.join(ROOT_DIR, "model", "monster.npz")
-ASSETS_DIR     = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+MODEL_PATH  = _resource_path(os.path.join("model", "monster.npz"))
+ASSETS_DIR  = _resource_path(os.path.join("game", "assets"))
 
 # ── Difficulty — monster ticks per second ────────────────────────────────────
 # Each tier defines: (min_elapsed_seconds, ticks_per_second, label)

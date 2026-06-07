@@ -6,7 +6,7 @@ import pygame
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from game.config import (
-    N, CELL_SIZE, MARGIN, HUD_HEIGHT,
+    ASSETS_DIR, N, CELL_SIZE, MARGIN, HUD_HEIGHT,
     WINDOW_WIDTH, WINDOW_HEIGHT, FPS,
     FONT_HUD_SMALL, FONT_HUD_LARGE, FONT_TITLE,
     FONT_SUBTITLE, FONT_BUTTON, FONT_RESULT,
@@ -241,19 +241,14 @@ class Game:
         sprite_size = CELL_SIZE - 8
         sprites     = {}
         for name in ("hero", "monster", "princess"):
-            path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
-                "assets", f"{name}.png"
-            )
+            path = os.path.join(ASSETS_DIR, f"{name}.png")
             if os.path.exists(path):
-                img             = pygame.image.load(path).convert_alpha()
-                sprites[name]   = pygame.transform.scale(
-                    img, (sprite_size, sprite_size)
-                )
+                img           = pygame.image.load(path).convert_alpha()
+                sprites[name] = pygame.transform.scale(img, (sprite_size, sprite_size))
                 print(f"[Sprites] Loaded {name}.png")
             else:
                 sprites[name] = None
-                print(f"[Sprites] {name}.png not found — using coloured rect")
+                print(f"[Sprites] {name}.png not found at {path}")
         return sprites
 
     # ── Round reset ───────────────────────────────────────────────────────────
