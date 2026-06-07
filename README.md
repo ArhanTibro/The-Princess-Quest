@@ -70,7 +70,7 @@ _Your goal — but she won't let you catch her that easy!_
 
 ---
 
-## 🧠 Deep Reinforcement Learning — How It Works
+##  Deep Reinforcement Learning — How It Works
 
 ### Why Reinforcement Learning?
 
@@ -98,11 +98,15 @@ This small change produces significantly more stable training.
 
 ---
 
-## 🚀 How to Play
+##  How to Play
 
 ### Windows — Download & Play (No Python needed)
 
-1. Go to the [Releases](../../releases) page
+## Release links:
+- https://arhan2004.itch.io/the-princess-quest
+- https://github.com/ArhanTibro/The-Princess-Quest/releases/tag/v1.0
+
+1. Go to the release links
 2. Download `ThePrincessQuest.exe`
 3. Double click — done
 
@@ -155,7 +159,7 @@ python game/main.py
 The trained model (`model/monster.npz`) is already committed to the
 repo — no retraining needed. The game runs immediately.
 
-## 🎯 Controls
+##  Controls
 
 | Key         | Action     |
 | ----------- | ---------- |
@@ -166,7 +170,7 @@ repo — no retraining needed. The game runs immediately.
 
 ---
 
-## 📄 License
+##  License
 
 MIT License — free to use, modify, and distribute.
 
